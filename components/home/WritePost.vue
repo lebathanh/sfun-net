@@ -72,7 +72,7 @@
           <div class="card__body-text__add">
             <span>Add to your post...</span>
             <div class="card__body-text__add-item">
-              <v-menu top offset-y>
+              <v-menu :close-on-content-click="false" top offset-y>
                 <template #activator="{ on, attrs }">
                   <v-icon size="30" color="warning" class="card__body-text__add-item_" v-bind="attrs" v-on="on">mdi-emoticon-outline </v-icon>
                 </template>

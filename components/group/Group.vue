@@ -22,7 +22,7 @@
               <v-list min-width="150px">
                 <v-list-item-group>
                   <!-- Change info -->
-                  <v-list-item v-if="checkJoined && checkIsAdmin" dense @click="HandleLeave">
+                  <v-list-item v-if="checkJoined && checkIsAdmin" dense>
                     <v-list-item-icon>
                       <v-icon>mdi-book-edit-outline </v-icon>
                     </v-list-item-icon>
@@ -30,7 +30,7 @@
                   </v-list-item>
 
                   <!-- Change background -->
-                  <v-list-item v-if="checkJoined && checkIsAdmin" dense @click="HandleLeave">
+                  <v-list-item v-if="checkJoined && checkIsAdmin" dense>
                     <v-list-item-icon>
                       <v-icon>mdi-image</v-icon>
                     </v-list-item-icon>
@@ -38,7 +38,7 @@
                   </v-list-item>
 
                   <!-- Add admin -->
-                  <v-list-item v-if="checkJoined && checkIsAdmin" dense @click="HandleLeave">
+                  <v-list-item v-if="checkJoined && checkIsAdmin" dense>
                     <v-list-item-icon>
                       <v-icon>mdi-account-key-outline</v-icon>
                     </v-list-item-icon>
