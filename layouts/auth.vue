@@ -25,7 +25,9 @@ export default {
 <style lang="scss" scoped>
 .main {
   background: $bg;
+  width: 100%;
   height: 100%;
+  position: relative;
   .container {
     position: relative;
     padding: 0;
