@@ -5,7 +5,7 @@
       <div class="header">
         <div v-bind="attrs" ref="call" class="header__input" v-on="on">
           <v-avatar class="header__input-avatar" size="40">
-            <img :src="getAvatar" />
+            <v-img :src="getAvatar" />
           </v-avatar>
           <input disabled type="text" :placeholder="getName + ', how are you today?'" />
         </div>
