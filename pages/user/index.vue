@@ -634,7 +634,7 @@ export default {
   }
 }
 .qrcode {
-  width: 280px;
+  width: 290px;
   height: auto;
   .header {
     width: 100%;
