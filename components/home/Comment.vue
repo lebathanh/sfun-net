@@ -2,7 +2,7 @@
   <div>
     <div class="post-cmt__list-item">
       <v-avatar size="40">
-        <img :src="getAvatar" alt="" srcset="" />
+        <v-img :src="getAvatar" alt="" srcset="" />
       </v-avatar>
       <div class="post-cmt__list-item__content">
         <div>
