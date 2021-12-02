@@ -65,15 +65,15 @@ export default {
 
   computed: {
     getFriends(ctx) {
-      if (ctx.$auth.user) {
-        return ctx.$auth.user.friends
+      if (ctx.$store.state.user) {
+        return ctx.$store.state.user.friends
       } else {
         return []
       }
     },
     getAccepts(ctx) {
-      if (ctx.$auth.user) {
-        return ctx.$auth.user.accept
+      if (ctx.$store.state.user) {
+        return ctx.$store.state.user.accept
       } else {
         return []
       }
@@ -108,9 +108,11 @@ export default {
           const indexA = await this.$store.state.user.accept.map((x) => x._id).indexOf(friend._id)
           const indexR = await this.$store.state.friend.request.indexOf(this.$store.state.user._id)
           await this.$store.commit('acceptFriend', { a: indexA, r: indexR })
+          await this.$store.commit('acceptFriend_', { a: indexA, r: indexR })
         } else {
           const indexA = await this.$store.state.user.accept.map((x) => x._id).indexOf(friend._id)
           await this.$store.commit('acceptFriendHome', { a: indexA, friend })
+          await this.$store.commit('acceptFriendHome_', { a: indexA, friend })
         }
         this.loading = false
       } else {

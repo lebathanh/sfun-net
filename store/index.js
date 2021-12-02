@@ -75,14 +75,18 @@ export const mutations = {
     state.friend.request.splice(data.r, 1)
   },
   acceptFriend(state, data) {
-    state.user.accept.splice(data.a, 1)
-    state.friend.request.splice(data.r, 1)
     state.user.friends.push(state.friend)
     state.friend.friends.push(state.user._id)
   },
-  acceptFriendHome(state, data) {
+  acceptFriend_(state, data) {
     state.user.accept.splice(data.a, 1)
+    state.friend.request.splice(data.r, 1)
+  },
+  acceptFriendHome(state, data) {
     state.user.friends.push(data.friend)
+  },
+  acceptFriendHome_(state, data) {
+    state.user.accept.splice(data.a, 1)
   },
   denideFriendHome(state, data) {
     state.user.accept.splice(data.a, 1)
