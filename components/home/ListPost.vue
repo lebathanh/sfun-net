@@ -84,15 +84,17 @@ export default {
   methods: {
     async loadPost() {
       try {
-        this.scroll_loading = true
-        const result = await this.$axios.get(`/api/post/page/${++this.current_page}`)
-        if (result.data.success) {
-          this.scroll_loading = false
-          const data = {
-            count: result.data.postsSize,
-            posts: result.data.posts,
+        if (this.current_page < this.$store.state.posts.count) {
+          this.scroll_loading = true
+          const result = await this.$axios.get(`/api/post/page/${++this.current_page}`)
+          if (result.data.success) {
+            this.scroll_loading = false
+            const data = {
+              count: result.data.postsSize,
+              posts: result.data.posts,
+            }
+            await this.$store.commit('loadPosts', data)
           }
-          await this.$store.commit('loadPosts', data)
         }
       } catch (error) {}
     },
