@@ -34,6 +34,45 @@
               </v-card>
             </v-dialog>
 
+            <!-- Change Pass -->
+            <v-dialog v-model="passDialog" max-width="290">
+              <template #activator="{ on, attrs }">
+                <v-icon class="user-header__key" color="white" size="24" v-bind="attrs" v-on="on">mdi-account-key</v-icon>
+              </template>
+              <v-card>
+                <div class="change_pass">
+                  <div class="header">
+                    <p>CHANGE PASSWORDS</p>
+                  </div>
+                  <v-form ref="form" v-model="valid" class="body" lazy-validation>
+                    <v-text-field v-model="password" type="password" :rules="passwordRules" color="primary" label="Password" required></v-text-field>
+                    <v-text-field
+                      v-model="newPassword"
+                      type="password"
+                      :rules="passwordRules"
+                      color="primary"
+                      label="New Password"
+                      required
+                    ></v-text-field>
+                    <v-text-field
+                      v-model="confirmPassword"
+                      type="password"
+                      :rules="[() => newPassword === confirmPassword || 'Must be same to password']"
+                      color="primary"
+                      label="Confirm new password"
+                      required
+                    ></v-text-field>
+                  </v-form>
+                  <v-divider></v-divider>
+                  <div class="action">
+                    <v-spacer />
+                    <v-btn class="action__btn" @click="passDialog = false">Cancel</v-btn>
+                    <v-btn class="action__btn" color="primary" @click="validatePass">Save</v-btn>
+                  </div>
+                </div>
+              </v-card>
+            </v-dialog>
+
             <div class="user-header__info">
               <v-avatar class="user-header__info-avatar" size="120">
                 <v-img :src="getAvatar"></v-img>
@@ -202,6 +241,11 @@
         <v-btn color="red" text v-bind="attrs" @click="snackbarFail = false"> Close </v-btn>
       </template>
     </v-snackbar>
+
+    <!-- Overlay -->
+    <v-overlay :value="overlay">
+      <v-progress-circular indeterminate size="64"></v-progress-circular>
+    </v-overlay>
   </div>
 </template>
 
@@ -224,6 +268,7 @@ export default {
 
   data: () => ({
     tab: null,
+    overlay: false,
     chooseAvatar: true,
     avatar: '',
     aImg: '',
@@ -231,6 +276,8 @@ export default {
     rules: [(v) => !!v || 'This input is required'],
     dialog: false,
     qrDialog: false,
+    passDialog: false,
+    valid: true,
     scaning: false,
     snackbarFail: false,
     error: '',
@@ -241,6 +288,10 @@ export default {
       gender: '',
       address: '',
     },
+    password: '',
+    newPassword: '',
+    confirmPassword: '',
+    passwordRules: [(v) => !!v || 'Is required', (v) => (v && v.length >= 8) || 'Must be at least 8 characters'],
   }),
 
   computed: {
@@ -324,6 +375,31 @@ export default {
   methods: {
     writePost() {
       this.$refs.w_post.dialog = true
+    },
+    async validatePass(e) {
+      e.preventDefault()
+      this.overlay = true
+      if (this.$refs.form.validate()) {
+        try {
+          const result = await this.$axios.put('/api/auth/changepassword', { password: this.password, newPasswords: this.newPassword })
+          if (result.data.success) {
+            this.overlay = false
+            this.passDialog = false
+            this.password = ''
+            this.newPassword = ''
+            this.confirmPassword = ''
+            this.valid = true
+          } else {
+            this.overlay = false
+            this.error = 'Password is incorectly'
+            this.snackbarFail = true
+          }
+        } catch (error) {
+          this.overlay = false
+          this.error = 'Something went wrong'
+          this.snackbarFail = true
+        }
+      }
     },
     async validate(e) {
       e.preventDefault()
@@ -472,6 +548,14 @@ export default {
             right: 12px;
             cursor: pointer;
           }
+
+          &__key {
+            position: absolute;
+            top: 12px;
+            right: 48px;
+            cursor: pointer;
+          }
+
           img {
             width: 100%;
             height: 280px;
@@ -655,6 +739,43 @@ export default {
     padding: 12px;
     height: 200px;
     display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .action {
+    padding: 5px 12px;
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    &__btn {
+      margin-left: 4px;
+    }
+  }
+}
+.change_pass {
+  width: 290px;
+  height: auto;
+  .header {
+    width: 100%;
+    height: 40px;
+    background: $primary;
+    text-align: center;
+    p {
+      color: #fff;
+      font-size: $font_md;
+      font-weight: 600;
+      margin: 0;
+      padding: 0;
+      line-height: 40px;
+    }
+  }
+  .body {
+    width: 100%;
+    padding: 12px;
+    height: 240px;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
   }
