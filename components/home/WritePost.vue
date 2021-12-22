@@ -206,7 +206,7 @@ export default {
       const files = e.target.files
       const filesize = (files[0].size / 1024 / 1024).toFixed(4)
       const filename = files[0].name
-      if (filesize <= 10) {
+      if (filesize <= 20) {
         if (filename.lastIndexOf('.') <= 0) {
           return alert('Please add a valid file')
         }
@@ -221,7 +221,7 @@ export default {
         this.overloading = false
       } else {
         this.overloading = false
-        this.snackbarTooBig = true
+        this.snackbarFail = true
       }
     },
     delImg(e, i) {
