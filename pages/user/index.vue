@@ -192,7 +192,7 @@
                   <v-badge color="primary" :content="getPosts.length" :value="getPosts.length" bordered> Posts </v-badge>
                 </v-tab>
                 <v-tab>
-                  <v-badge color="primary" :content="0" :value="0" bordered> Save </v-badge>
+                  <v-badge color="primary" :content="getPostsSave.length" :value="getPostsSave.length" bordered> Save </v-badge>
                 </v-tab>
               </v-tabs>
 
