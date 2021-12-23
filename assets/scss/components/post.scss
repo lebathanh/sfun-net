@@ -264,7 +264,7 @@
     &-item {
       transform: scale(0.9);
       max-width: 80%;
-      max-height: 80%;
+      height: 80%;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -291,6 +291,10 @@
     }
     &-next {
       right: 0;
+    }
+    &-close {
+      top: 20px;
+      right: 10px;
     }
   }
 }

@@ -183,11 +183,12 @@
     </div>
 
     <!-- Overlay -->
-    <div v-if="overlay" class="overlay" @click="closeLB">
+    <div v-if="overlay" class="overlay">
       <div class="overlay-item">
         <img v-if="getCrrMedia !== null && getCrrMedia.type === 'img'" :src="getCrrMedia.url" />
         <video v-if="getCrrMedia !== null && getCrrMedia.type === 'video'" :src="getCrrMedia.url" controls></video>
       </div>
+      <v-icon size="40" class="overlay-icon overlay-close" @click="closeLB">mdi-close-circle </v-icon>
       <v-icon size="60" class="overlay-icon overlay-prev" @click="prevMedia">mdi-chevron-left </v-icon>
       <v-icon size="60" class="overlay-icon overlay-next" @click="nextMedia">mdi-chevron-right</v-icon>
     </div>
