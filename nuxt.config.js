@@ -34,7 +34,7 @@ export default {
     sockets: [
       {
         name: 'home',
-        url: 'https://sfun-net.herokuapp.com',
+        url: process.env.API_URL,
         default: true,
       },
     ],

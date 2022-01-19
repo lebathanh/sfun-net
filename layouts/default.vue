@@ -147,6 +147,7 @@ export default {
     items: [
       { title: 'Home', icon: 'mdi-home-city', link: '' },
       { title: 'Groups', icon: 'mdi-account-group-outline', link: 'group' },
+      { title: 'Chat', icon: 'mdi-wechat', link: 'chat' },
       { title: 'My Account', icon: 'mdi-account', link: 'user' },
     ],
   }),
